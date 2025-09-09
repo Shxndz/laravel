@@ -9,7 +9,8 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'produk_id', 'quantity'];
+    // ✅ tambahkan 'total'
+    protected $fillable = ['user_id', 'produk_id', 'quantity', 'total'];
 
     public function user()
     {
@@ -19,5 +20,18 @@ class Purchase extends Model
     public function produk()
     {
         return $this->belongsTo(Produk::class);
+    }
+
+    // ✅ auto set total kalau belum ada
+    protected static function booted()
+    {
+        static::creating(function ($purchase) {
+            if (empty($purchase->total)) {
+                $produk = \App\Models\Produk::find($purchase->produk_id);
+                if ($produk) {
+                    $purchase->total = $produk->harga * $purchase->quantity;
+                }
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\CartController;
 
 // Public Routes
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -13,6 +14,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/my-purchases', [ProdukController::class, 'myPurchases'])->middleware('auth')->name('purchase.purchases');
 Route::get('/produk/{id}/buy', [ProdukController::class, 'showBuyForm'])->name('produk.buy');
 Route::post('/produk/{id}/buy', [ProdukController::class, 'processPurchase'])->name('produk.purchase');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/{id}/beli', [CartController::class, 'beli'])->name('cart.beli');
+Route::post('/cart/{id}/beli', [CartController::class, 'beli'])->name('cart.beli');
+
 
 
 
@@ -32,5 +37,18 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/produk/{produk}', [ProdukController::class, 'destroy'])->name('produk.destroy');
         Route::resource('produk', ProdukController::class)->except(['index', 'show']);
     });
+
+    Route::middleware(['auth'])->group(function () {
+    Route::post('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+});
+
+Route::post('/cart/{id}/beli', [CartController::class, 'beli'])->name('cart.beli');
+
 
 });

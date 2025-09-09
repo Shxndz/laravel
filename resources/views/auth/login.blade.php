@@ -8,12 +8,12 @@
 
             <!-- Header -->
             <div class="text-center mb-4">
-                <div class="bg-primary text-white rounded-circle d-inline-flex justify-content-center align-items-center"
-                    style="width: 70px; height: 70px;">
-                    <i class="bi bi-shop me-1" style="font-size: 2rem;"></i>
+                <div class="rounded-circle d-inline-flex justify-content-center align-items-center"
+                    style="width: 70px; height: 70px; background-color: rgba(43, 126, 136, 1);">
+                    <i class="bi bi-controller" style="font-size: 2rem;"></i>
                 </div>
-                <h3 class="mt-3 fw-bold">Welcome Back</h3>
-                <p class="text-muted">Masuk untuk melanjutkan belanja</p>
+                <h3 class="mt-3 fw-bold">Selamat Datang!</h3>
+                <p class="text-muted">Silahkan login untuk berbelanja</p>
             </div>
 
             <!-- Alert Error -->
@@ -44,20 +44,20 @@
                     <label for="password" class="form-label fw-semibold">Password</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="••••••••"
+                        <input type="password" name="password" class="form-control" id="password" placeholder="password"
                             required>
                     </div>
                 </div>
 
                 <!-- Button -->
-                <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                <button type="submit" class="btn w-100 py-2 fw-semibold" style="background-color: rgba(43, 126, 136, 1); border-color: rgba(43, 126, 136, 1); color: #fff;">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
                 </button>
 
                 <!-- Link Register -->
                 <div class="text-center mt-3">
                     <small class="text-muted">Belum punya akun?</small>
-                    <a href="{{ route('register') }}" class="fw-semibold text-decoration-none"> Yo daftar sekarang</a>
+                    <a href="{{ route('register') }}" class="fw-semibold text-decoration-none"> daftar sekarang</a>
                 </div>
             </form>
         </div>

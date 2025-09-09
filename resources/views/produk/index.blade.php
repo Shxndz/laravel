@@ -7,7 +7,7 @@
     <div class="container mt-10 mb-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold text-primary">
-                <i class="bi bi-basket-fill me-2"></i> Daftar Makanan
+                <i class="bi bi-basket-fill me-2"></i> Daftar Games
             </h2>
 
             {{-- Tombol tambah produk untuk admin --}}
@@ -88,10 +88,23 @@
                                                 </div>
                                             </div>
                                         @else
-                                            <a href="{{ route('produk.buy', $p->id) }}"
-                                                class="btn btn-success w-100 {{ $p->stok == 0 ? 'disabled' : '' }}">
-                                                <i class="bi bi-cart-plus"></i> Beli
-                                            </a>
+                                            <div class="d-flex gap-2">
+    {{-- Tombol Tambah ke Keranjang --}}
+    <form action="{{ route('cart.add', $p->id) }}" method="POST" class="flex-fill">
+        @csrf
+        <button type="submit"
+            class="btn btn-warning text-dark fw-bold w-100 {{ $p->stok == 0 ? 'disabled' : '' }}">
+            <i class="bi bi-cart-plus"></i> Keranjang
+        </button>
+    </form>
+
+    {{-- Tombol Beli Langsung --}}
+    <a href="{{ route('produk.buy', $p->id) }}"
+        class="btn btn-success w-100 {{ $p->stok == 0 ? 'disabled' : '' }}">
+        <i class="bi bi-bag-check"></i> Beli
+    </a>
+</div>
+
                                         @endif
                                     @endauth
                                 </div>
@@ -110,7 +123,7 @@
         }
         .produk-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 20px rgba(254, 231, 21, 0.5);
         }
     </style>
 @endsection

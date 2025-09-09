@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Warung Asep')</title>
+    <title>@yield('title', 'Sulthan Games')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #083b5bff;
+        }
+        .container {
+            color: #101820ff;
+        }
+        .card {
+            background-color: #dcdcdcbf;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm mb-4" style="background-color: #0e1f29ff;">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">
-                <i class="bi bi-shop me-1"></i> Warung Asep
+                <i class="bi bi-controller"></i> Sulthan Games
             </a>
 
             <!-- Toggler for mobile -->
@@ -21,42 +32,60 @@
 
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto">
-                    @auth
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('produk.index') ? 'active' : '' }}" 
-                               href="{{ route('produk.index') }}">
-                               <i class="bi bi-box-seam"></i> Produk
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('purchase.purchases') ? 'active' : '' }}" 
-                               href="{{ route('purchase.purchases') }}">
-                               <i class="bi bi-bag-check"></i> Pembelian
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button class="btn btn-link nav-link" type="submit">
-                                    <i class="bi bi-box-arrow-right"></i> Logout
-                                </button>
-                            </form>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" 
-                               href="{{ route('register') }}">
-                               <i class="bi bi-person-plus"></i> Register
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" 
-                               href="{{ route('login') }}">
-                               <i class="bi bi-box-arrow-in-right"></i> Login
-                            </a>
-                        </li>
-                    @endauth
-                </ul>
+    @auth
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('produk.index') ? 'active' : '' }}" 
+               href="{{ route('produk.index') }}">
+               <i class="bi bi-box-seam"></i> Produk Kami
+            </a>
+        </li>
+
+        <!-- 🔥 Tambahin ini untuk menu keranjang -->
+        <li class="nav-item position-relative">
+    <a class="nav-link {{ request()->routeIs('cart.index') ? 'active' : '' }}" 
+       href="{{ route('cart.index') }}">
+       <i class="bi bi-cart"></i> Keranjang
+       @if(isset($cartCount) && $cartCount > 0)
+           <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">
+               {{ $cartCount }}
+           </span>
+       @endif
+    </a>
+</li>
+
+
+        <!-- end -->
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('purchase.purchases') ? 'active' : '' }}" 
+               href="{{ route('purchase.purchases') }}">
+               <i class="bi bi-bag-check"></i> Riwayat Pembelian
+            </a>
+        </li>
+        <li class="nav-item">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="btn btn-link nav-link" type="submit">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+            </form>
+        </li>
+    @else
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('register') ? 'active' : '' }}" 
+               href="{{ route('register') }}">
+               <i class="bi bi-person-plus"></i> Register
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" 
+               href="{{ route('login') }}">
+               <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+        </li>
+    @endauth
+</ul>
+
             </div>
         </div>
     </nav>
